@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- displays site properly based on user's device -->
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+
+  <title>Frontend Mentor | Interactive rating component</title>
+
+  <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Overpass:wght@400;700&display=swap');
+
+    *,
+    *::after,
+    *::before {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      font-size: 62.5%;
+    }
+
+    body {
+      font-size: 1.5rem;
+      font-family: 'Overpass', sans-serif;
+      color: hsl(217, 12%, 63%);
+    }
+
+    main {
+      min-height: 100vh;
+      background-color: hsl(216, 12%, 8%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .card {
+      background: radial-gradient(95.67% 95.67% at 49.88% 4.33%, #212832 0%, #171E28 100%);
+      /* background-color: hsl(213, 19%, 18%); */
+      padding: 3rem;
+      border-radius: 2rem;
+      width: 95%;
+      max-width: 412px;
+
+    }
+
+    .star-icon {
+      background-color: hsl(213, 19%, 18%);
+      height: 5rem;
+      width: 5rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 100%;
+      margin-bottom: 2rem;
+    }
+
+    .card h2 {
+      color: hsl(0, 0%, 100%);
+      margin-bottom: 1rem;
+    }
+
+    p {
+      line-height: 1.6em;
+      margin-bottom: 2rem;
+    }
+
+    .ratings {
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      margin-bottom: 3rem;
+    }
+
+    .ratings li {
+      background-color: hsl(213, 19%, 18%);
+      color: hsl(217, 12%, 63%);
+      font-size: 1.9rem;
+      height: 5rem;
+      width: 5rem;
+      line-height: 5rem;
+      text-align: center;
+      border-radius: 100%;
+      cursor: pointer;
+      transition: background-color 350ms ease, color 350ms ease;
+    }
+
+    .ratings li.selected {
+      background-color: hsl(217, 12%, 63%);
+      color: hsl(0, 0%, 100%);
+    }
+
+    .ratings li:hover {
+      background-color: hsl(25, 97%, 53%);
+      color: hsl(0, 0%, 100%);
+    }
+
+    button {
+      width: 100%;
+      padding: 1.5rem 2rem;
+      font-size: 1.7rem;
+      border-radius: 15em;
+      background-color: hsl(25, 97%, 53%);
+      color: hsl(0, 0%, 100%);
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      border: none;
+      cursor: pointer;
+      transition: background-color 350ms ease, color 350ms ease;
+    }
+
+    button:hover {
+      background-color: hsl(0, 0%, 100%);
+      color: hsl(25, 97%, 53%);
+    }
+
+    .selected-rating {
+      padding: 0.5rem 1.5rem;
+      width: fit-content;
+      margin: auto;
+      margin-top: 2rem;
+      margin-bottom: 2rem;
+      background-color: hsl(213, 19%, 18%);
+      color: hsl(25, 97%, 53%);
+      border-radius: 15em;
+    }
+
+    .center-text {
+      text-align: center;
+    }
+
+    .attribution {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      padding: 0.5rem;
+    }
+  </style>
+</head>
+
+<body>
+
+  <main>
+
+    <div class="card" id="rating_card">
+      <div class="star-icon"><img src="./images/icon-star.svg" alt=""></div>
+
+      <h2>How did we do?</h2>
+      <p>Please let us know how we did with your support request. All feedback is appreciated
+        to help us improve our offering!</p>
+
+      <ul class="ratings">
+        <li class="rate">1</li>
+        <li class="rate">2</li>
+        <li class="rate">3</li>
+        <li class="rate">4</li>
+        <li class="rate">5</li>
+      </ul>
+
+      <button>Submit</button>
+    </div>
+
+    <div class="card center-text" id="thankyou_card" style="display: none;">
+      <img src="./images/illustration-thank-you.svg" alt="">
+
+      <p class="selected-rating">You selected <span id="submitted_rating"></span> out of 5</p>
+
+
+      <h2>Thank you!</h2>
+
+      <p>We appreciate you taking the time to give a rating. If you ever need more support,
+        don&#8217;t hesitate to get in touch!</p>
+    </div>
+
+    <div class="attribution">
+      Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>.
+      Coded by <a href="https://github.com/roricrimson">RoriCrimson</a>.
+    </div>
+
+  </main>
+
+
+  <script>
+    // GLOBAL VARIABLE
+    let submittedRating;
+    const ratings = document.querySelectorAll('.rate');
+    const button = document.querySelector('button');
+    const ratingCard = document.querySelector('#rating_card');
+    const thankyouCard = document.querySelector('#thankyou_card');
+    const submittedRatingEl = document.querySelector('#submitted_rating');
+
+    console.log(thankyouCard.style);
+    button.onclick = (e) => {
+      if (!submittedRating) return;
+      ratingCard.style.display = 'none'
+      submittedRatingEl.innerText = submittedRating
+      thankyouCard.style.display = 'block'
+    }
+
+    ratings.forEach(el => {
+      el.onclick = (e) => {
+        clearSelectiont()
+        e.target.classList.add('selected')
+        submittedRating = parseInt(e.target.innerText)
+        console.log(submittedRating);
+      }
+    })
+
+
+    function clearSelectiont() {
+      ratings.forEach(el => {
+        el.classList.remove('selected')
+      })
+    }
+
+
+  </script>
+
+</body>
+
+</html>
