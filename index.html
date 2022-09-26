@@ -142,6 +142,22 @@
       right: 0;
       padding: 0.5rem;
     }
+
+    .fade-in {
+      animation: fadeInAnimation 0.5s ease forwards;
+    }
+
+    @keyframes fadeInAnimation {
+      0% {
+        opacity: 0;
+        transform: translateY(-100px);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
   </style>
 </head>
 
@@ -149,7 +165,7 @@
 
   <main>
 
-    <div class="card" id="rating_card">
+    <div class="card fade-in" id="rating_card">
       <div class="star-icon"><img src="./images/icon-star.svg" alt=""></div>
 
       <h2>How did we do?</h2>
@@ -167,7 +183,7 @@
       <button>Submit</button>
     </div>
 
-    <div class="card center-text" id="thankyou_card" style="display: none;">
+    <div class="card center-text fade-in" id="thankyou_card" style="display: none;">
       <img src="./images/illustration-thank-you.svg" alt="">
 
       <p class="selected-rating">You selected <span id="submitted_rating"></span> out of 5</p>
